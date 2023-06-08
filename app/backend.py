@@ -2,7 +2,14 @@ from pdf2image import convert_from_bytes
 import streamlit as sl
 from math import ceil
 import zipfile
-import base64
+import os
+
+#change working dir to temp, creates temp if doesn't exist
+try:
+    os.chdir("./temp")
+except:
+    os.mkdir("./temp")
+    os.chdir("./temp")
 
 #display image in app
 def display_images(img_list):
@@ -37,7 +44,9 @@ def create_zip(img_list):
 #download zip
 def dl_zip():
     with open("images.zip","rb") as f:
-        sl.download_button('Download Zip',f,file_name='images.zip')
+        sl.download_button("Download ZIP file",f,file_name="images.zip")
+    # os.chdir("..")
+    # shutil.rmtree("./temp")
 
 #store all links
 class links:
@@ -68,7 +77,7 @@ def homepage():
         create_zip(temp_img)
         dl_zip()
 
-#sidebar layout        
+#sidebar layout
 def sidebar():
     sl.sidebar.title("Split PDF")
     sl.sidebar.subheader("An app to convert pdf file into series of png images")

@@ -9,5 +9,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./setup ./setup
-COPY ./app ./app
 RUN pip3 install -r ./setup/requirements.txt
+COPY ./app ./app
+
+EXPOSE 8501
+HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+ENTRYPOINT ["python3","-m","streamlit","run","./app/Home.py","--server.port=8501","--server.address=0.0.0.0"]
