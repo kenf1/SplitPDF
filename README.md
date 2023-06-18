@@ -1,7 +1,8 @@
-## SplitPDF
+## SplitPdf: Convert pdf file into series of images
 
-Web application to split pdf into series of png images.
+Repo contains the following:
 
-[![](https://img.shields.io/badge/-Demo-blue)](https://splitpdf.onrender.com)
-
-***Note***: Demo is hosted on server with 512 MB of memory. App would not run if > 512 MB memory used.
+- __DesktopApp__: Desktop application
+- __WebApp__: Hosted web application
+  - Free tier of host server is limited to 512MB RAM
+  - [![](https://img.shields.io/badge/-Demo-blue)](https://splitpdf.onrender.com)

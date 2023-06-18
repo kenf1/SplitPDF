@@ -1,4 +1,4 @@
-FROM python:3.11.3-slim
+FROM python:3.11.4-slim
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -8,9 +8,9 @@ RUN apt-get update && apt-get install -y \
     poppler-utils \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./setup ./setup
+COPY ./WebApp/setup ./setup
 RUN pip3 install -r ./setup/requirements.txt
-COPY ./app ./app
+COPY ./WebApp/app ./app
 
 EXPOSE 8501
 HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
