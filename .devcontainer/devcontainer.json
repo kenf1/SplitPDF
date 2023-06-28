@@ -29,7 +29,10 @@
 				"kevinrose.vsc-python-indent",
 				"njpwerner.autodocstring",
 				"ms-toolsai.jupyter"
-			]
+			],
+			"settings": {
+				"code-runner.enableAppInsights": false
+			}
 		}
 	}
 
