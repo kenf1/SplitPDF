@@ -2,7 +2,8 @@ import os
 import sys
 from PyQt6.QtWidgets import (
     QApplication, QWidget, QPushButton, 
-    QLabel, QLineEdit, QGridLayout, QCheckBox
+    QLabel, QLineEdit, QGridLayout, QCheckBox, 
+    QMessageBox
 )
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon
@@ -13,18 +14,13 @@ class Window(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowIcon(QIcon("icon.png"))
-        self.setWindowTitle("Pdf Splitter App")
+        self.setWindowTitle("SplitPDF App")
         self.setContentsMargins(20,20,20,20)
         self.resize(600,200)
         
         #add label & text input boxes
         layout = QGridLayout()
         self.setLayout(layout)
-        
-        # #add description/source
-        # self.appDesc = QLabel()
-        # self.appDesc.setText('App by: <a href="https://github.com/kenf1">KF</a>')
-        # layout.addWidget(self.appDesc,0,0)
         
         #input label
         self.inputLabel = QLabel("Pdf file path:")
@@ -83,9 +79,20 @@ class Window(QWidget):
         else:
             output_path = self.outputPath.text()
     
+        #create path if doesn't exist
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
+    
         #save each page in jpg format
         for i in range(len(images)):
             images[i].save(f"{output_path}"+"page"+str(i)+".jpg","JPEG")
+        
+        #show message
+        message = QMessageBox()
+        message.setWindowTitle("App Run")
+        message.setText("The input pdf file has been converted to series of jpg images.")
+        message.setIcon(QMessageBox.Icon.Information)
+        message.exec()
 
 if __name__ == "__main__":
     #show window
