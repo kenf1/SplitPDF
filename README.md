@@ -17,4 +17,8 @@ Repo contains the following:
 
 #### WebApp Version
 
+> ***Note:*** The webapp version is hosted on a server limited to 512MB RAM. It will crash if > 512MB RAM used.
+> 
+> __Host on server with > 512 MB RAM if working with large pdf files.__
+
 ![](Ref/web.png)

@@ -3,9 +3,9 @@ import sys
 from PyQt6.QtWidgets import (
     QApplication, QWidget, QPushButton, 
     QLabel, QLineEdit, QGridLayout, QCheckBox, 
-    QMessageBox
+    QMessageBox, QFileDialog
 )
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon
 from pdf2image import convert_from_path
 
@@ -16,11 +16,16 @@ class Window(QWidget):
         self.setWindowIcon(QIcon("icon.png"))
         self.setWindowTitle("SplitPDF App")
         self.setContentsMargins(20,20,20,20)
-        self.resize(600,200)
+        self.resize(550,320)
         
         #add label & text input boxes
         layout = QGridLayout()
         self.setLayout(layout)
+        
+        #open file button
+        self.openFileButton = QPushButton("Open File",self)
+        self.openFileButton.clicked.connect(self.show_file_picker)
+        layout.addWidget(self.openFileButton,1,2)
         
         #input label
         self.inputLabel = QLabel("Pdf file path:")
@@ -28,7 +33,8 @@ class Window(QWidget):
         
         #input path
         self.inputPath = QLineEdit()
-        layout.addWidget(self.inputPath,1,1,1,2)
+        self.inputPath.setMinimumSize(QSize(50,50))
+        layout.addWidget(self.inputPath,1,1,1,1)
         
         #output label
         self.outputLabel = QLabel("Output path:")
@@ -36,6 +42,7 @@ class Window(QWidget):
         
         #output path
         self.outputPath = QLineEdit()
+        self.outputPath.setMinimumSize(QSize(50,50))
         layout.addWidget(self.outputPath,2,1,1,2)
         
         #check to save in parent directory (autofill output directory)
@@ -93,6 +100,13 @@ class Window(QWidget):
         message.setText("The input pdf file has been converted to series of jpg images.")
         message.setIcon(QMessageBox.Icon.Information)
         message.exec()
+
+    #select file & send file_name (full path) to inputPath
+    def show_file_picker(self):
+        file_name, _ = QFileDialog.getOpenFileName(self,"Select pdf file","",
+                                                   "Pdf Files (*.pdf);;All Files (*)")
+        self.inputPath.setText(file_name)
+        # return file_name
 
 if __name__ == "__main__":
     #show window
