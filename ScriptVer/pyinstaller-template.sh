@@ -5,7 +5,7 @@ cd VENV
 source VENV/bin/activate
 
 #create exe
-pyinstaller --onefile --hidden-import=pdf2image SplitPDF/ScriptVer/SplitPDF-script.py
+pyinstaller --onefile --hidden-import=pdf2image --name "SplitPDF" "SplitPDF/ScriptVer/SplitPDF-script.py"
 
 #clean project folder
     #copy exe to desktop

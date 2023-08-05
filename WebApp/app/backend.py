@@ -25,10 +25,12 @@ def display_images(img_list):
         num_batches = ceil(len(img_list)/batch_size)
     with controls[2]:
         page = sl.selectbox("Page",range(1,num_batches+1))
+    
     #split img_list into batches
     batch = img_list[(page-1)*batch_size:page*batch_size]
     grid = sl.columns(row_size)
     col = 0
+    
     for image in batch:
         with grid[col]:
             sl.image(image)
@@ -50,7 +52,7 @@ def dl_zip():
 
 #store all links
 class links:
-    gh_issue = "https://github.com/kenf1//issues"
+    gh_issue = "https://github.com/kenf1/issues"
     author = "App by: [KF](https://github.com/kenf1)"
 
 #page config
@@ -68,6 +70,7 @@ def homepage():
                                    "About":links.author})
     
     uploaded_pdf = sl.file_uploader("Upload pdf file",type=".pdf")
+    
     #split & display images only when pdf is uploaded/stored in RAM
     if uploaded_pdf is not None:
         sl.markdown("#### Pdf upload detected")

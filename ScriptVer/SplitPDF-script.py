@@ -1,4 +1,5 @@
 import os
+from sys import platform
 from pdf2image import convert_from_path
 
 #use absolute path
@@ -11,10 +12,11 @@ def splitPDF(inputPath,outputPath):
     """
     img = convert_from_path(inputPath)
     
-    if outputPath[-1] != "/":
-        output_path = f"{outputPath}/"
-    else:
-        output_path = outputPath
+    #append os specific folder seperator
+    if platform == "linux" or platform == "darwin":
+        output_path = folderSep(outputPath,"/")
+    elif platform == "win32":
+        output_path = folderSep(outputPath,"\\")
     
     if not os.path.exists(outputPath):
         os.makedirs(outputPath)
@@ -29,13 +31,17 @@ def promptUser():
     
     #enter anything for outputPath if plan on saving to parent directory
     parentDir = input("Enter `T` or `True` to save to parent directory: ")
-    if parentDir=="T" or "True":
+    if parentDir == "T" or parentDir == "True":
         outputPath = os.path.split(inputPath)[0]
-    # else:
-    #     outputPath = input("Path to save output jpg: ")
     
     splitPDF(inputPath,outputPath)
     print("Finished")
+
+#add os specific folder seperator
+def folderSep(outputPath,entry):
+    if outputPath[-1] != entry:
+        output_path = f"{outputPath}{entry}"
+    return output_path
 
 #run app
 if __name__ == "__main__":
